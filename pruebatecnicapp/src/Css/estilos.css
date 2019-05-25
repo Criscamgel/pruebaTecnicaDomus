@@ -1,0 +1,77 @@
+@font-face {
+    font-family: monserrat;
+    src: url(../Fonts/Montserrat-Regular.ttf);
+}
+
+html, body{
+    font-family: monserrat;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+/* Login */
+
+.gridLogin{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 10rem);
+    grid-gap: 0px;
+}
+
+.contLogin{
+    grid-column: 2/3;
+    grid-row: 2;
+    font-family: monserrat;
+    text-align: center;
+    
+}
+
+.formLogin{
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+    grid-gap: 0px;
+    text-align: center;
+    text-align: -webkit-center;
+}
+
+.tituLogin{
+    margin: 15px 0px 25px 0px;
+}
+
+input{
+    font-family: monserrat;
+    height: 25px;
+    margin: 5px 0px 5px 0px;
+    text-align: center;    
+    font-size: 15px;
+}
+
+button{
+    font-family: monserrat;
+    height: 50px;
+    margin: 20px 0px 5px 0px;
+    background: #0c489e;
+    color: #fff;
+    border-color: #0c489e;
+}
+
+@media only screen and (max-width: 664px) {
+
+    .tituLogin{
+        font-size: 25px;
+    }
+}
+
+@media only screen and (min-width: 800px) {
+
+    input, button{
+        width: 250px;
+    }
+
+
+}
+
