@@ -59,6 +59,17 @@ button{
     border-color: #0c489e;
 }
 
+button:disabled,
+button[disabled]{
+  background: #7999c7;
+  border-color: transparent;
+}
+
+.formErrores{
+    color:#d21749;
+    font-size: 12px;
+}
+
 @media only screen and (max-width: 664px) {
 
     .tituLogin{
