@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
-class Login extends Component {
+export default class Login extends Component {
 
     state = {
         inputEmail: '',
@@ -16,16 +17,16 @@ class Login extends Component {
                 btnDesabilitado: false,
                 mensajeError: ''
             });
-            if(/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(this.state.inputEmail)) {
+            if (/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(this.state.inputEmail)) {
                 this.setState({
                     btnDesabilitado: false,
                     mensajeError: ''
-                }); 
-            }else{
+                });
+            } else {
                 this.setState({
                     btnDesabilitado: true,
                     mensajeError: 'Correo Electrónico Invalido'
-                }); 
+                });
             }
 
         } else {
@@ -58,15 +59,16 @@ class Login extends Component {
                         ></input>
 
                         <span className="formErrores">{this.state.mensajeError}</span>
-
-                        <button
-                            disabled={this.state.btnDesabilitado}
-                        >Continuar</button>
-                    </form>
+                        <Link to={'/lista'}>
+                            <button
+                                disabled={this.state.btnDesabilitado}
+                            >
+                                Continuar</button>
+                        </Link>
+                        <input type="checkbox"/>Recordarme                                              
+                    </form>                    
                 </div>
             </div>
         );
     }
 }
-
-export default Login;
