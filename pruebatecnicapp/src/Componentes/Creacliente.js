@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {withRouter} from 'react-router-dom';
+import Header from './Header';
 
 class Creacliente extends Component {
 
@@ -8,9 +9,10 @@ class Creacliente extends Component {
         email: '',
         direccion: '',
         sector: '',
-        tiempoCompleto:'',
+        antiguo:false,
         btnDesabilitado: 'true',
-        mensajeError: ''
+        mensajeError: '',
+        showClient: false
     }
 
     validarCampos = () => {
@@ -50,22 +52,45 @@ class Creacliente extends Component {
             email: this.state.email,
             direccion: this.state.direccion,
             sector: this.state.sector,
-            tiempoCompleto: this.state.tiempoCompleto
+            antiguo: this.state.antiguo
         }
 
         this.props.nuevoCliente(nuevoCliente)
         this.props.history.push('/lista')
     }
 
+    cambioChecked = () =>{
+        this.setState({
+            antiguo: !this.state.antiguo
+          });        
+    }
+
+    showClient = (e) =>{
+
+        e.preventDefault();
+
+        this.setState({
+            showClient: true
+        })
+    }
+
+    hideClient = (e) => {
+        e.preventDefault();
+
+        this.setState({
+            showClient: false
+        })
+    }
+
     render() {
         return (
             <React.Fragment>
-
-                <div className="conTabla">
+                <Header />
+                <div className="conTablaCrea">
 
                     <h3>Crear Cliente</h3>
 
-                    <form onSubmit={this.crearCliente} className="formCrear">
+                    <form className="formCrear">
                         <input
                             type="text"
                             placeholder="Nombre"
@@ -97,9 +122,27 @@ class Creacliente extends Component {
                             <option value="25">Tecnología</option>
                         </select>
 
-                        <div className="btnsForm">
+                        <div className="formCheckTabla">
+                            <input
+                            type="checkbox"
+                            checked={this.state.antiguo}
+                            onChange={this.cambioChecked} 
+                            /><p>Es antiguo?</p>
+                        </div>
+
+                        <div className="btnsForm" onClick={this.showClient}>
                             <button> Añadir Contácto</button>
                         </div>
+
+                        {this.state.showClient ? 
+                            
+                            <div className="cliente">
+                            <input placeholder="Nombre"></input>
+                            <input placeholder="Cliente"></input>
+                            <button className="btnBorrar" onClick={this.hideClient}>Borrar</button>
+                            </div>
+                            
+                            : null}
 
                         <div className="btnsForm">
                         <button disabled={this.state.btnDesabilitado} onClick={this.crearCliente}> Guardar Cliente</button>

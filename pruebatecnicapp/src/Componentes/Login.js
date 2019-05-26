@@ -65,8 +65,10 @@ export default class Login extends Component {
                             >
                                 Continuar</button>
                         </Link>
-                        <input type="checkbox"/>Recordarme                                              
-                    </form>                    
+                        <div className="formCheck">
+                            <input type="checkbox" /><p>Recordarme</p>
+                        </div>
+                    </form>
                 </div>
             </div>
         );

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Header from './Header';
 
 import { Link } from 'react-router-dom';
 
@@ -9,26 +10,23 @@ export default class Listaclientes extends Component {
             {
                 "nombre": "James",
                 "sector": "57",
-                "tiempoCompleto": true,
-                "manager": true,
                 "direccion": "dir1",
-                "email": "James@James.com"
+                "email": "James@James.com",
+                "antiguo": true,
             },
             {
                 "nombre": "María",
                 "sector": "27",
-                "tiempoCompleto": false,
-                "manager": false,
                 "direccion": "dir1",
-                "email": "maria@maria.com"
+                "email": "maria@maria.com",
+                "antiguo": false,
             },
             {
                 "nombre": "Saul",
                 "sector": "25",
-                "tiempoCompleto": true,
-                "manager": false,
                 "direccion": "dir1",
-                "email": "saul@saul.com"
+                "email": "saul@saul.com",
+                "antiguo": true,
             }
         ]
     }
@@ -37,14 +35,14 @@ export default class Listaclientes extends Component {
 
         let nuevoCliente = this.props.nuevoCliente;
 
-        do{            
+        if(nuevoCliente.nombre){
             let clientes = this.state.clientes
             clientes.push(nuevoCliente)
 
             this.setState({
                 clientes
             })
-        }while(nuevoCliente.nombre)       
+        }
     }
 
     mostrarClientes = () => {
@@ -58,8 +56,13 @@ export default class Listaclientes extends Component {
                     <tr key={i}>
                         <td>{clientes[cliente].nombre}</td>
                         <td>{clientes[cliente].sector}</td>
-                        <td>{clientes[cliente].sector}</td>
-                        <td>{clientes[cliente].sector}</td>
+                        <td>{clientes[cliente].direccion}</td>
+                        <td>{clientes[cliente].email}</td>
+                        <td>
+                            <div className="formCheckT">
+                                <input type="checkbox" checked={clientes[cliente].antiguo} disabled/>
+                            </div>
+                        </td>
                     </tr>
                 ))}
             </React.Fragment>
@@ -69,7 +72,7 @@ export default class Listaclientes extends Component {
     render() {
         return (
             <React.Fragment>
-
+                <Header />
                 <div className="conTabla">
 
                     <h3>Lista de Clientes</h3>
@@ -85,8 +88,9 @@ export default class Listaclientes extends Component {
                             <tr>
                                 <th className="" scope="col">Nombre</th>
                                 <th className="text-center" scope="col">Sector</th>
-                                <th className="" scope="col">Tiempo Completo</th>
-                                <th className="" scope="col">Manager</th>
+                                <th className="" scope="col">Direccion</th>
+                                <th className="" scope="col">Email</th>
+                                <th className="" scope="col">Antiguo</th>
                             </tr>
                         </thead>
 

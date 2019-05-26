@@ -3,7 +3,6 @@ import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 
 import '../Css/estilos.css';
 
-import Header from './Header';
 import Login from './Login';
 import Listaclientes from './ListaClientes';
 import Creacliente from './Creacliente';
@@ -29,8 +28,7 @@ export default class Router extends Component {
 
     render() {
         return (                
-                <BrowserRouter>
-                    <Header />
+                <BrowserRouter>                    
                     <Switch>
                         <Route exact path="/login" component={Login}></Route>
                         <Redirect exact from="/" to="/login" />
