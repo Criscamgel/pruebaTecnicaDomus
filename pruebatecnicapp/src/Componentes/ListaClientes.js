@@ -1,43 +1,55 @@
 import React, { Component } from 'react';
-import Header from './Header';
+
+import { Link } from 'react-router-dom';
 
 export default class Listaclientes extends Component {
 
     state = {
-        clientes: []
-    }
-
-    componentDidMount() {
-        const clientes = [
+        clientes: [
             {
                 "nombre": "James",
-                "sector": 57,
+                "sector": "57",
                 "tiempoCompleto": true,
-                "manager": true
+                "manager": true,
+                "direccion": "dir1",
+                "email": "James@James.com"
             },
             {
                 "nombre": "María",
-                "sector": 27,
+                "sector": "27",
                 "tiempoCompleto": false,
-                "manager": false
+                "manager": false,
+                "direccion": "dir1",
+                "email": "maria@maria.com"
             },
             {
                 "nombre": "Saul",
-                "sector": 25,
+                "sector": "25",
                 "tiempoCompleto": true,
-                "manager": false
+                "manager": false,
+                "direccion": "dir1",
+                "email": "saul@saul.com"
             }
         ]
+    }
 
-        this.setState({
-            clientes
-        })
+    componentDidMount() {
+
+        let nuevoCliente = this.props.nuevoCliente;
+
+        do{            
+            let clientes = this.state.clientes
+            clientes.push(nuevoCliente)
+
+            this.setState({
+                clientes
+            })
+        }while(nuevoCliente.nombre)       
     }
 
     mostrarClientes = () => {
 
         const clientes = this.state.clientes;
-        console.log(clientes);
         if (clientes.length === 0) return null;
 
         return (
@@ -57,9 +69,18 @@ export default class Listaclientes extends Component {
     render() {
         return (
             <React.Fragment>
-                <Header />
-                <div className="contListado">
-                    <table className="table table-striped">
+
+                <div className="conTabla">
+
+                    <h3>Lista de Clientes</h3>
+
+                    <div className="btnCrear">
+                        <Link to={'/creacliente'}>
+                            <button>Crear Cliente</button>
+                        </Link>
+                    </div>
+
+                    <table className="table-dark">
                         <thead>
                             <tr>
                                 <th className="" scope="col">Nombre</th>

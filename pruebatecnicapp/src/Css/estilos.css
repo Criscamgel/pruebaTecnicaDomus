@@ -39,8 +39,13 @@ html, body{
     text-align: -webkit-center;
 }
 
-.tituLogin{
-    margin: 15px 0px 25px 0px;
+.tituLogin, .tituLoginHeader{
+    margin: 30px 0px 25px 0px;
+}
+
+.tituLoginHeader{
+    text-align: center;
+    font-size: 25px;
 }
 
 input{
@@ -90,6 +95,123 @@ button[disabled]{
 /* Header */
 
 .contHeader{
-    background-color: #0c489e;
+    background-color: #d6d6d6;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+    grid-gap: 0px;
 }
 
+/* Menu */
+
+#btnMenu{
+    padding: 30px 0px 0px 20px;
+    font-size: 20px;
+}
+
+.contMenu{
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+    grid-gap: 0px;
+}
+
+.contItem, .contItemHeader{
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+    grid-gap: 0px;
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+    color: #ddd;
+    
+}
+
+.contItem .fa{
+    font-size: 20px;
+    text-align: center;
+    padding: 10px 0px 0px 0px;
+}
+
+.contItemHeader .fa{
+    grid-column: 4/5;
+    grid-row: 1;
+    font-size: 25px;
+    text-align: center;    
+    padding: 10px 0px 0px 0px;
+}
+
+.contItemHeader p{
+    grid-column: 5/5;
+    grid-row: 1;
+}
+
+.contItem p{
+    grid-column: 2/5;
+    padding: 10px 0px 0px 0px;
+}
+
+.contItemHeader{
+    color: rgb(0, 0, 0);
+    
+}
+
+/* Tabla */
+
+.conTabla{
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(3, 100px);
+}
+
+.conTabla .table-dark{
+    grid-column: 2/5;
+    grid-row: 2;
+}
+
+.conTabla h3{
+    grid-column: 2/5;
+    grid-row: 1;
+    padding: 35px 0px 0px 0px;
+    text-align: left;
+}
+
+tr, td{
+    height: 30px;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+}
+
+.btnCrear{
+    grid-column: 4/5;
+    grid-row: 1;    
+    text-align: right;    
+}
+
+.btnCrear button{
+    width: 150px;
+}
+
+.formCrear{
+    grid-column: 2/5;
+    grid-row: 2;
+    text-align: center;
+}
+
+.formCrear input{
+    padding: 15px;
+    margin: 10px;
+}
+
+.btnsForm{
+    grid-column: 2/5;
+    grid-row: 3;
+}
+
+.conTabla select{
+    width: 250px;
+    height: 35px;
+    margin: 10px;
+    padding: 5px 0px 5px 0px;
+}
