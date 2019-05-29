@@ -1,160 +1,163 @@
-import React, { Component } from 'react';
-import {withRouter} from 'react-router-dom';
-import Header from './Header';
+import React, { Component } from "react";
+import { withRouter } from "react-router-dom";
+import Header from "./Header";
 
 class Creacliente extends Component {
+  state = {
+    cliente: {
+      nombre: "",
+      email: "",
+      direccion: "",
+      sector: "",
+      antiguo: false
+    },
+    btnDesabilitado: "true",
+    mensajeError: "",
+    showClient: false
+  };
 
-    state = {
-        nombre: '',
-        email: '',
-        direccion: '',
-        sector: '',
-        antiguo:false,
-        btnDesabilitado: 'true',
-        mensajeError: '',
-        showClient: false
-    }
+  handleChange = (e) => {
+    this.setState({
+        cliente:{
+            ...this.state.cliente,
+            [e.target.name] : e.target.value
+        } 
+    })
+    this.validarCampos();
+  }
 
-    validarCampos = () => {
+  validarCampos = () => {
+    const { nombre, email, direccion, sector } = this.state.cliente;
 
-        if (this.state.sector !== '' && this.state.nombre !== '' && this.state.email !== '' && this.state.direccion !== '') {
-            this.setState({
-                btnDesabilitado: false,
-                mensajeError: ''
-            });
-            if (/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(this.state.email)) {
-                this.setState({
-                    btnDesabilitado: false,
-                    mensajeError: ''
-                });
-            } else {
-                this.setState({
-                    btnDesabilitado: true,
-                    mensajeError: 'Correo Electrónico Invalido'
-                });
-            }
-
-        } else {
-            this.setState({
-                btnDesabilitado: true,
-                mensajeError: 'Debe diligenciar todos los campos'
-            });
-        }
-
-    }
-
-    crearCliente = (e) => {
-
-        e.preventDefault();
-
-        const nuevoCliente = {
-            nombre: this.state.nombre,
-            email: this.state.email,
-            direccion: this.state.direccion,
-            sector: this.state.sector,
-            antiguo: this.state.antiguo
-        }
-
-        this.props.nuevoCliente(nuevoCliente)
-        this.props.history.push('/lista')
-    }
-
-    cambioChecked = () =>{
+    if (nombre !== "" && email !== "" && direccion !== "" && sector !== "") {
+      this.setState({
+        btnDesabilitado: false,
+        mensajeError: ""
+      });
+      if (/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(email)) {
         this.setState({
-            antiguo: !this.state.antiguo
-          });        
-    }
-
-    showClient = (e) =>{
-
-        e.preventDefault();
-
+          btnDesabilitado: false,
+          mensajeError: ""
+        });
+      } else {
         this.setState({
-            showClient: true
-        })
+          btnDesabilitado: true,
+          mensajeError: "Correo Electrónico Invalido"
+        });
+      }
+    } else {
+      this.setState({
+        btnDesabilitado: true,
+        mensajeError: "Debe diligenciar todos los campos"
+      });
     }
+  };
 
-    hideClient = (e) => {
-        e.preventDefault();
+  crearCliente = (e) => {
+    e.preventDefault();
+    const nuevoCliente = { ...this.state.cliente };
 
-        this.setState({
-            showClient: false
-        })
-    }
+    this.props.nuevoCliente(nuevoCliente);
+    this.props.history.push("/lista");
+  };
 
-    render() {
-        return (
-            <React.Fragment>
-                <Header />
-                <div className="conTablaCrea">
+    cambioChecked = () => {
+    this.setState({
+      cliente:{
+          ...this.state.cliente,
+          antiguo: !this.state.cliente.antiguo
+        }  
+    });
+    };
 
-                    <h3>Crear Cliente</h3>
+  showClient = e => {
+    e.preventDefault();
 
-                    <form className="formCrear">
-                        <input
-                            type="text"
-                            placeholder="Nombre"
-                            value={this.state.nombre}
-                            onChange={e => { this.setState({ nombre: e.target.value }); this.validarCampos() }}
-                        ></input>
+    this.setState({
+      showClient: !this.state.showClient
+    });
+  };
 
-                        <input
-                            type="text"
-                            placeholder="Email"
-                            value={this.state.email}
-                            onChange={e => { this.setState({ email: e.target.value }); this.validarCampos() }}
-                        ></input>
+  render() {
+    return (
+      <React.Fragment>
+        <Header />
+        <div className="conTablaCrea">
+          <h3>Crear Cliente</h3>
 
-                        <input
-                            type="text"
-                            placeholder="Dirección"
-                            value={this.state.direccion}
-                            onChange={e => { this.setState({ direccion: e.target.value }); this.validarCampos() }}
-                        ></input>
+          <form className="formCrear">
+            <input
+              type="text"
+              name="nombre"
+              placeholder="Nombre"
+              onChange={this.handleChange}
+            />
 
-                        <select value={this.state.sector}
-                            onClick={this.validarCampos}
-                            onChange={e => { this.setState({ sector: e.target.value }) }}
-                        >
-                            <option value='' selected>Selecciona el sector</option>
-                            <option value="57">Finanzas</option>
-                            <option value="27">Tributario</option>
-                            <option value="25">Tecnología</option>
-                        </select>
+            <input
+              type="text"
+              name="email"
+              placeholder="Email"
+              onChange={this.handleChange}
+            />
 
-                        <div className="formCheckTabla">
-                            <input
-                            type="checkbox"
-                            checked={this.state.antiguo}
-                            onChange={this.cambioChecked} 
-                            /><p>Es antiguo?</p>
-                        </div>
+            <input
+              type="text"
+              name="direccion"
+              placeholder="Dirección"
+              onChange={this.handleChange}
+            />
 
-                        <div className="btnsForm" onClick={this.showClient}>
-                            <button> Añadir Contácto</button>
-                        </div>
+            <select
+              name="sector"
+              onClick={this.validarCampos}
+              onChange={this.handleChange}
+            >
+              <option value="" selected>
+                Selecciona el sector
+              </option>
+              <option value="57">Finanzas</option>
+              <option value="27">Tributario</option>
+              <option value="25">Tecnología</option>
+            </select>
 
-                        {this.state.showClient ? 
-                            
-                            <div className="cliente">
-                            <input placeholder="Nombre"></input>
-                            <input placeholder="Cliente"></input>
-                            <button className="btnBorrar" onClick={this.hideClient}>Borrar</button>
-                            </div>
-                            
-                            : null}
+            <div className="formCheckTabla">
+              <input
+                type="checkbox"
+                checked={this.state.cliente.antiguo}
+                onChange={this.cambioChecked}
+              />
+              <p>Es antiguo?</p>
+            </div>
 
-                        <div className="btnsForm">
-                        <button disabled={this.state.btnDesabilitado} onClick={this.crearCliente}> Guardar Cliente</button>
-                        </div>
+            <div className="btnsForm" onClick={this.showClient}>
+              <button> Añadir Contácto</button>
+            </div>
 
-                        <span className="formErrores">{this.state.mensajeError}</span>
+            {this.state.showClient ? (
+              <div className="cliente">
+                <input placeholder="Nombre" />
+                <input placeholder="Cliente" />
+                <button className="btnBorrar" onClick={this.showClient}>
+                  Borrar
+                </button>
+              </div>
+            ) : null}
 
-                    </form>
-                </div>
-            </React.Fragment>
-        );
-    }
+            <div className="btnsForm">
+              <button
+                disabled={this.state.btnDesabilitado}
+                onClick={this.crearCliente}
+              >
+                Guardar Cliente
+              </button>
+            </div>
+
+            <span className="formErrores">{this.state.mensajeError}</span>
+          </form>
+        </div>
+      </React.Fragment>
+    );
+  }
 }
 
 export default withRouter(Creacliente);
